@@ -1,11 +1,15 @@
 package com.study.javamind.controller;
 
 import com.study.javamind.entity.UserEntity;
+import com.study.javamind.param.UserParam;
 import com.study.javamind.service.UserService;
+import com.study.javamind.vo.UserVo;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author: zou_xq
@@ -20,8 +24,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("testUser")
-    public String testUser(@RequestBody UserEntity user) {
+    public String testUser(UserEntity user) {
         String result = userService.getUser(user);
+        return result;
+    }
+
+    @PostMapping("getUserInfo")
+    public List<UserVo> getUserInfo(@RequestBody UserParam user) {
+        List<UserVo> result = userService.getUserInfo(user);
         return result;
     }
 }

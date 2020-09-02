@@ -15,4 +15,6 @@ import java.util.List;
 public interface UserService {
     public String getUser(UserEntity user);
     public List<UserVo> getUserInfo(UserParam param);
+    public List<UserVo> getUserListByIds(UserParam param);
+
 }

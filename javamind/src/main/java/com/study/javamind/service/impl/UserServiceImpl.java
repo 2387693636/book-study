@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.study.javamind.entity.UserEntity;
 import com.study.javamind.param.UserParam;
 import com.study.javamind.service.UserService;
+import com.study.javamind.vo.IdVo;
 import com.study.javamind.vo.UserVo;
 import org.apache.catalina.User;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -67,6 +69,26 @@ public class UserServiceImpl implements UserService {
                 logger.info(userVoList.get(i).getUsername());
             }
             logger.info(JSONObject.toJSONString(userVoList));
+            return userVoList;
+        }
+        return null;
+    }
+
+    @Override
+    public List<UserVo> getUserListByIds(UserParam param) {
+        if (Objects.nonNull(param)) {
+            String ids = param.getIds();
+            String[] split = ids.split(",");
+            List<UserVo> userVoList = new ArrayList<>();
+            for (int i = 0; i < split.length; i++) {
+                UserVo userVo = new UserVo();
+                IdVo<String> stringIdVo = new IdVo<>(split[i]);
+                userVo.setText("text:"+stringIdVo.getData());
+                userVo.setUsername("user:" + split[i]);
+                userVo.setPassword("password:" + split[i]);
+                userVo.setGender("fale");
+                userVoList.add(userVo);
+            }
             return userVoList;
         }
         return null;

@@ -17,4 +17,5 @@ public class UserVo extends UserEntity {
     }
 
     private String text;
+    private String textq2;
 }

@@ -1,6 +1,7 @@
 package com.study.javamind.controller;
 
 import com.study.javamind.entity.UserEntity;
+import com.study.javamind.interceptor.annotation.CheckConfigNum;
 import com.study.javamind.param.UserParam;
 import com.study.javamind.service.UserService;
 import com.study.javamind.vo.UserVo;
@@ -29,9 +30,17 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("testAnnotation")
+    @CheckConfigNum(code = "testAnnotation" , requestKey = "{#capacity}" , errorMsg = "错误")
+    public String testAnnotation(@RequestParam("capacity") Integer capacity) {
+        return capacity+"";
+    }
+
     @PostMapping("getUserInfo")
     public List<UserVo> getUserInfo(@RequestBody UserParam user) {
         List<UserVo> result = userService.getUserInfo(user);
         return result;
     }
+
+
 }
